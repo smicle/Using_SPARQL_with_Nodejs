@@ -3,7 +3,7 @@
 
 `Node js`で`SPARQL`を使う簡単な例です。  
 `endPoint`と`query`を変更すれば任意の値を取得できます。  
-値は`json`が返ってきます。  
+`output`の`json`を変更すれば違う形式で返ってきます。  
 
 ```
 npm i
