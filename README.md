@@ -1,8 +1,9 @@
 ## Using_SPARQL_with_Nodejs
 
 
-`js`で`SPARQL`を使う際の簡単な例です。  
-`endPoint`と`query`を変更すれば`json`が返ってきます。  
+`Node js`で`SPARQL`を使う簡単な例です。  
+`endPoint`と`query`を変更すれば任意の値を取得できます。  
+値は`json`が返ってきます。  
 
 ```
 npm i
