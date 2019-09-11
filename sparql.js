@@ -3,10 +3,11 @@ const fetch = require('node-fetch')
 const endPoint = 'http://ja.dbpedia.org/sparql'
 
 const Query = `
-SELECT DISTINCT *
-WHERE {
+select distinct ?p ?o
+where {
   <http://ja.dbpedia.org/resource/東京都> ?p ?o .
 }
+LIMIT 100
 `
 
 const fetchSPARQL = () =>
