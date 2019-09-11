@@ -1,7 +1,7 @@
 const fetch = require('node-fetch')
 
 const endPoint = 'http://ja.dbpedia.org/sparql'
-
+const output = 'json'
 const query = `
 select distinct ?p ?o
 where {
@@ -11,7 +11,7 @@ LIMIT 100
 `
 
 const fetchSPARQL = () =>
-  fetch(`${endPoint}?output=json&query=${encodeURIComponent(query)}`)
+  fetch(`${endPoint}?output=${output}&query=${encodeURIComponent(query)}`)
     .then(r => r.json())
     .then(r => r.results.bindings)
 ;(async () => {
