@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 
 const endPoint = 'https://sparql.crssnky.xyz/spql/imas/query'
 
-const Query = `
+const query = `
 PREFIX schema: <http://schema.org/>
 PREFIX imas: <https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl#>
 SELECT ?o ?h
@@ -13,7 +13,7 @@ WHERE {
 `
 
 const fetchSPARQL = () =>
-  fetch(`${endPoint}?output=json&query=${encodeURIComponent(Query)}`)
+  fetch(`${endPoint}?output=json&query=${encodeURIComponent(query)}`)
     .then(r => r.json())
     .then(r => r.results.bindings)
 ;(async () => {
