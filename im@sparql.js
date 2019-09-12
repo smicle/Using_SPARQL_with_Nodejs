@@ -1,5 +1,4 @@
 const fetch = require('node-fetch')
-const fs = require('fs')
 
 const endPoint = 'https://sparql.crssnky.xyz/spql/imas/query'
 const output = 'json'
@@ -21,9 +20,12 @@ const fetchSPARQL = () =>
     .then(r => r.results.bindings)
 ;(async () => {
   const json = await fetchSPARQL()
-  const text = json
+  const list = json
     .filter(v => v.cv.type === 'literal')
     .filter(v => v.name['xml:lang'] === 'ja')
-    .map(v => `${v.name.value}  ${v.cv.value}`)
-  fs.writeFileSync('test.log', text.join('\r\n'))
+    .map(v => ({
+      name: v.name.value,
+      cv: v.cv.value,
+    }))
+  list.forEach(v => console.log(v))
 })().catch(e => console.error(e))
