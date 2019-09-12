@@ -21,8 +21,8 @@ const fetchSPARQL = () =>
 ;(async () => {
   const json = await fetchSPARQL()
   const list = json
-    .filter(v => v.cv.type === 'literal')
     .filter(v => v.name['xml:lang'] === 'ja')
+    .filter(v => v.cv.type === 'literal')
     .map(v => ({
       name: v.name.value,
       cv: v.cv.value,
