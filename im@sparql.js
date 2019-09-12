@@ -1,15 +1,18 @@
 const fetch = require('node-fetch')
+const fs = require('fs')
 
 const endPoint = 'https://sparql.crssnky.xyz/spql/imas/query'
 const output = 'json'
 const query = `
 PREFIX schema: <http://schema.org/>
 PREFIX imas: <https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl#>
-SELECT ?o ?h
+
+SELECT ?name ?cv
 WHERE {
-  ?s schema:name|schema:alternateName ?o;
-     schema:height ?h.
-}order by(?h)
+  ?s schema:name|schema:alternateName ?name;
+     imas:cv ?cv.
+}
+LIMIT 1000
 `
 
 const fetchSPARQL = () =>
@@ -18,5 +21,9 @@ const fetchSPARQL = () =>
     .then(r => r.results.bindings)
 ;(async () => {
   const json = await fetchSPARQL()
-  json.forEach(v => console.log(v.o, v.h))
+  const text = json
+    .filter(v => v.cv.type === 'literal')
+    .filter(v => v.name['xml:lang'] === 'ja')
+    .map(v => `${v.name.value}  ${v.cv.value}`)
+  fs.writeFileSync('test.log', text.join('\r\n'))
 })().catch(e => console.error(e))
