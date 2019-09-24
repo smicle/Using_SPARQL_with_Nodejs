@@ -8,24 +8,25 @@ PREFIX imas: <https://sparql.crssnky.xyz/imasrdf/URIs/imas-schema.ttl#>
 
 SELECT ?name ?cv
 WHERE {
-  ?s schema:name|schema:alternateName ?name;
+  ?s schema:name ?name;
      imas:cv ?cv.
+  FILTER (lang(?name) = 'ja').
+  FILTER (lang(?cv) = 'ja').
 }
 LIMIT 1000
 `
 
-const fetchSPARQL = () =>
+const fetchSPARQL = query =>
   fetch(`${endPoint}?output=${output}&query=${encodeURIComponent(query)}`)
     .then(r => r.json())
     .then(r => r.results.bindings)
 ;(async () => {
-  const json = await fetchSPARQL()
-  const list = json
-    .filter(v => v.name['xml:lang'] === 'ja')
-    .filter(v => v.cv.type === 'literal')
-    .map(v => ({
-      name: v.name.value,
-      cv: v.cv.value,
-    }))
-  list.forEach(v => console.log(v))
+  const json = await fetchSPARQL(query)
+
+  const list = json.map(v => ({
+    name: v.name.value,
+    cv: v.cv.value,
+  }))
+
+  list.forEach((v, i) => console.log(i, v))
 })().catch(e => console.error(e))
