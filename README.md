@@ -1,4 +1,4 @@
-## Using_SPARQL_with_Nodejs
+## using_SPARQL_with_Node.js
 
 
 `Node js`で`SPARQL`を使う簡単な例です。  
