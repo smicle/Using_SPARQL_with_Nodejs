@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs");
 const node_fetch_1 = require("node-fetch");
 const endPoint = 'http://ja.dbpedia.org/sparql';
 const output = 'json';
@@ -15,5 +16,6 @@ const fetchSPARQL = (query) => node_fetch_1.default(`${endPoint}?output=${output
     .then(r => r.results.bindings);
 (async () => {
     const json = await fetchSPARQL(query);
-    json.forEach(v => console.log(v.p, v.o));
+    fs.writeFileSync('sparql.json', JSON.stringify(json.map(v => ({ p: v.p, o: v.o }))));
+    console.log('I wrote in it.');
 })().catch(e => console.error(e));

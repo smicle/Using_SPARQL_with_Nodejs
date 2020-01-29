@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs");
 const node_fetch_1 = require("node-fetch");
 const endPoint = 'https://sparql.crssnky.xyz/spql/imas/query';
 const output = 'json';
@@ -19,10 +20,10 @@ const fetchSPARQL = (query) => node_fetch_1.default(`${endPoint}?output=${output
     .then(r => r.results.bindings);
 (async () => {
     const json = await fetchSPARQL(query);
-    json
-        .map(v => ({
+    const idol = json.map(v => ({
         name: v.name.value,
         cv: v.cv.value,
-    }))
-        .forEach(v => console.log(v));
+    }));
+    fs.writeFileSync('im@sparql.json', JSON.stringify(idol));
+    console.log('I wrote in it.');
 })().catch(e => console.error(e));

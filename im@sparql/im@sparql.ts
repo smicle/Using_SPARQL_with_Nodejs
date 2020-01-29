@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import fetch from 'node-fetch'
 
 const endPoint = 'https://sparql.crssnky.xyz/spql/imas/query'
@@ -20,11 +21,7 @@ const fetchSPARQL = (query: string) =>
     .then(r => r.results.bindings)
 ;(async () => {
   const json = await fetchSPARQL(query)
-
-  json
-    .map(v => ({
-      name: v.name.value,
-      cv: v.cv.value,
-    }))
-    .forEach(v => console.log(v))
+  const idol = json.map(v => ({name: v.name.value, cv: v.cv.value}))
+  fs.writeFileSync('im@sparql.json', JSON.stringify(idol))
+  console.log('I wrote in it.')
 })().catch(e => console.error(e))
