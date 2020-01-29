@@ -8,9 +8,9 @@
 ```
 npm i
 
-node sparql.js
+node sparql/sparql.js
 
-node im@sparql.js
+node im@sparql/im@sparql.js
 ```
 
 ## 参考
