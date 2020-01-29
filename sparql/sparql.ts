@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+import fetch from 'node-fetch'
 
 const endPoint = 'http://ja.dbpedia.org/sparql'
 const output = 'json'
@@ -10,11 +10,11 @@ where {
 LIMIT 100
 `
 
-const fetchSPARQL = () =>
+const fetchSPARQL = (query: string) =>
   fetch(`${endPoint}?output=${output}&query=${encodeURIComponent(query)}`)
     .then(r => r.json())
     .then(r => r.results.bindings)
 ;(async () => {
-  const json = await fetchSPARQL()
+  const json = await fetchSPARQL(query)
   json.forEach(v => console.log(v.p, v.o))
 })().catch(e => console.error(e))
