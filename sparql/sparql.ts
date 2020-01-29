@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import fetch from 'node-fetch'
 
 const endPoint = 'http://ja.dbpedia.org/sparql'
@@ -16,5 +17,6 @@ const fetchSPARQL = (query: string) =>
     .then(r => r.results.bindings)
 ;(async () => {
   const json = await fetchSPARQL(query)
-  json.forEach(v => console.log(v.p, v.o))
+  fs.writeFileSync('sparql.json', JSON.stringify(json.map(v => ({p: v.p, o: v.o}))))
+  console.log('I wrote in it.')
 })().catch(e => console.error(e))

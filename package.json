@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/smicle/Using_SPARQL_with_Nodejs#readme",
   "dependencies": {
+    "@types/node": "^13.5.1",
     "@types/node-fetch": "^2.5.4",
+    "fs": "0.0.1-security",
+    "node": "^13.6.0",
     "node-fetch": "^2.6.0",
     "typescript": "^3.7.5"
   }
