@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+import fetch from 'node-fetch'
 
 const endPoint = 'https://sparql.crssnky.xyz/spql/imas/query'
 const output = 'json'
@@ -14,11 +14,10 @@ WHERE {
 }
 `
 
-const fetchSPARQL = query =>
+const fetchSPARQL = (query: string) =>
   fetch(`${endPoint}?output=${output}&query=${encodeURIComponent(query)}`)
     .then(r => r.json())
     .then(r => r.results.bindings)
-
 ;(async () => {
   const json = await fetchSPARQL(query)
 
